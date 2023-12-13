@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wscube_bloc_with_note/ListBloc/list_bloc.dart';
-
-import 'Screens/home_page.dart';
+import 'package:wscube_bloc_with_note/AppDataBase/app_db.dart';
+import 'package:wscube_bloc_with_note/ListBloc/note_list_bloc.dart';
+import 'package:wscube_bloc_with_note/Screens/login_screen.dart';
 
 void main() {
   runApp(BlocProvider(
-    create: (context) => ListBloc(),
+    create: (context) => ListBloc(db: AppDataBase.instance),
     child: const MyApp(),
   ));
 }
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: LoginScreen(),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wscube_bloc_with_note/Constant.dart';
-import 'package:wscube_bloc_with_note/ListBloc/list_bloc.dart';
-import 'package:wscube_bloc_with_note/ListBloc/list_event.dart';
+import 'package:wscube_bloc_with_note/Constant/text_field.dart';
+import 'package:wscube_bloc_with_note/ListBloc/note_list_bloc.dart';
+import 'package:wscube_bloc_with_note/ListBloc/note_list_event.dart';
+import 'package:wscube_bloc_with_note/Model/note_model.dart';
 
 class NewNote extends StatelessWidget {
   NewNote({
@@ -11,11 +12,13 @@ class NewNote extends StatelessWidget {
     this.title = "",
     this.desc = "",
     this.noteId = 0,
+    this.userId = 0,
   });
 
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
 
+  final int userId;
   final int noteId;
   final bool isUpdate;
   final String title;
@@ -51,7 +54,9 @@ class NewNote extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: const Text(
                       "Cancel",
                       style: TextStyle(
@@ -64,18 +69,22 @@ class NewNote extends StatelessWidget {
                     onPressed: () {
                       if (isUpdate) {
                         BlocProvider.of<ListBloc>(context).add(UpdateNote(
-                          updateNote: {
-                            "title": titleController.text,
-                            "desc": descController.text,
-                          },
+                          updateNote: NoteModel(
+                            userId: userId,
+                            noteId: noteId,
+                            noteTitle: titleController.text.toString(),
+                            noteDesc: descController.text.toString(),
+                          ),
                           index: noteId,
                         ));
                       } else {
-                        BlocProvider.of<ListBloc>(context)
-                            .add(AddNote(newNote: {
-                          "title": titleController.text,
-                          "desc": descController.text,
-                        }));
+                        BlocProvider.of<ListBloc>(context).add(AddNote(
+                            newNote: NoteModel(
+                          userId: 0,
+                          noteId: 0,
+                          noteTitle: titleController.text.toString(),
+                          noteDesc: descController.text.toString(),
+                        )));
                       }
                       Navigator.pop(context);
                     },
