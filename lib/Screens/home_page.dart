@@ -42,6 +42,10 @@ class HomePage extends StatelessWidget {
               itemCount: noteList.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.primaries[index],
+                    child: Text("${index + 1}"),
+                  ),
                   title: Text(noteList[index].noteTitle),
                   subtitle: Text(noteList[index].noteDesc),
                   trailing: SizedBox(

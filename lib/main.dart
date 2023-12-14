@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wscube_bloc_with_note/AppDataBase/app_db.dart';
 import 'package:wscube_bloc_with_note/ListBloc/note_list_bloc.dart';
 import 'package:wscube_bloc_with_note/Screens/login_screen.dart';
+import 'package:wscube_bloc_with_note/Screens/splash_screen.dart';
 
 void main() {
   runApp(BlocProvider(
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }
