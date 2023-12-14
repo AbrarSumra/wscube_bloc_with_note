@@ -67,24 +67,27 @@ class NewNote extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (isUpdate) {
-                        BlocProvider.of<ListBloc>(context).add(UpdateNote(
-                          updateNote: NoteModel(
-                            userId: userId,
-                            noteId: noteId,
+                      if (titleController.text.isNotEmpty &&
+                          descController.text.isNotEmpty) {
+                        if (isUpdate) {
+                          BlocProvider.of<ListBloc>(context).add(UpdateNote(
+                            updateNote: NoteModel(
+                              userId: userId,
+                              noteId: noteId,
+                              noteTitle: titleController.text.toString(),
+                              noteDesc: descController.text.toString(),
+                            ),
+                            index: noteId,
+                          ));
+                        } else {
+                          BlocProvider.of<ListBloc>(context).add(AddNote(
+                              newNote: NoteModel(
+                            userId: 0,
+                            noteId: 0,
                             noteTitle: titleController.text.toString(),
                             noteDesc: descController.text.toString(),
-                          ),
-                          index: noteId,
-                        ));
-                      } else {
-                        BlocProvider.of<ListBloc>(context).add(AddNote(
-                            newNote: NoteModel(
-                          userId: 0,
-                          noteId: 0,
-                          noteTitle: titleController.text.toString(),
-                          noteDesc: descController.text.toString(),
-                        )));
+                          )));
+                        }
                       }
                       Navigator.pop(context);
                     },
