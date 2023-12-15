@@ -96,82 +96,66 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      trailing: PopupMenuButton(
-                        icon: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                        itemBuilder: (BuildContext context) {
-                          return [
-                            PopupMenuItem(
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (ctx) => NewNote(
-                                                isUpdate: true,
-                                                userId: noteList[index].userId,
-                                                noteId: noteList[index].noteId,
-                                                title:
-                                                    noteList[index].noteTitle,
-                                                desc: noteList[index].noteDesc,
-                                              )));
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.blue,
-                                ),
-                                label: const Text(
-                                  "Edit",
-                                  style: TextStyle(color: Colors.blue),
-                                ),
+                      trailing: SizedBox(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (ctx) => NewNote(
+                                              isUpdate: true,
+                                              userId: noteList[index].userId,
+                                              noteId: noteList[index].noteId,
+                                              title: noteList[index].noteTitle,
+                                              desc: noteList[index].noteDesc,
+                                            )));
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.orange,
+                                size: 30,
                               ),
                             ),
-                            PopupMenuItem(
-                              child: TextButton.icon(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) {
-                                        return AlertDialog(
-                                          title: const Text("Delete?"),
-                                          content: const Text(
-                                              "Are you want sure to delete?"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                BlocProvider.of<ListBloc>(
-                                                        context)
-                                                    .add(DeleteNote(
-                                                        index: noteList[index]
-                                                            .noteId));
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Yes"),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("No"),
-                                            ),
-                                          ],
-                                        );
-                                      });
-                                },
-                                icon: const Icon(
-                                  Icons.delete_forever,
-                                  color: Colors.blue,
-                                ),
-                                label: const Text(
-                                  "Delete",
-                                  style: TextStyle(color: Colors.blue),
-                                ),
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return AlertDialog(
+                                        title: const Text("Delete?"),
+                                        content: const Text(
+                                            "Are you want sure to delete?"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              BlocProvider.of<ListBloc>(context)
+                                                  .add(DeleteNote(
+                                                      index: noteList[index]
+                                                          .noteId));
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("Yes"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Text("No"),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              },
+                              icon: const Icon(
+                                Icons.delete_forever,
+                                color: Colors.red,
                               ),
-                            )
-                          ];
-                        },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
